@@ -16,18 +16,19 @@
 <body >
     <div class="container">
         <div class="row">
-            <div class="col-md-7 offset-md-3 col-sm-12">
+            <div class="col-md-7 offset-md-3 col-sm-18">
                 <h1 class="text-center">
-                    MONGODB-CHAT 
-                    <button id="clear" class="btn btn-danger">clear</button>
-                    <a  href="/users/logout" class="btn btn-secondary">Logout</a>
+                    Chat-Room
+                    <button id="clear" class="btn btn-danger">Clear</button>
+                    <a  href="/users/logout" class="btn btn-warning">LogOut</a>
                     
                 </h1>
+                <br>
                 <p class="lead mb-3"> Welcome <%= name %></p>
                 <div id="status"></div>
                 <div id="read"></div>
                 <div id="chat">
-                    <br>
+                    
                     <div class="card">
                         <div id="messages" class = "card-block">
                     
