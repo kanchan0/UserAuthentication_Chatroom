@@ -5,13 +5,13 @@ const client        =       require('socket.io').listen(4000).sockets;
 const Driver =function(){
        
     //connect to mongo
-        mongo.connect('mongodb://127.0.0.1/mongochat',{ useNewUrlParser: true,useUnifiedTopology: true },function(err,cl){
+        mongo.connect('mongodb://127.0.0.1/passport_auth',{ useNewUrlParser: true,useUnifiedTopology: true },function(err,cl){
             if(err){
             
                 throw err;
             }
-            console.log("MongoDB connected for chatroom...");
-            const db = cl.db("mongochat");
+            console.log("MongoDB connected for chatroom collection...");
+            const db = cl.db("passport_auth");
 
 
             //connect to socket.io
