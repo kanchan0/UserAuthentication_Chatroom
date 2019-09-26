@@ -1,7 +1,5 @@
 const LocalStrategy=require("passport-local").Strategy;
-const bcrypt = require("bcryptjs")
-
-
+const bcrypt = require("bcryptjs");
 const User = require("../modals/User")
 
 module.exports=function(passport){
@@ -14,7 +12,7 @@ module.exports=function(passport){
                 if(!user){
                     return done(null,false,{message:"Email not registred"});
                 }
-
+    
                 //match password
                 bcrypt.compare(password,user.password,(err,isMatch)=>{
                         if(err) throw err;

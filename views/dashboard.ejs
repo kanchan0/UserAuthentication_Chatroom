@@ -9,7 +9,7 @@
     <style>
         #messages{height: 300px;}
         body{
-            background-color:rgb(194, 247, 125);
+            background-color:rgb(248, 153, 115);
         }
     </style>
 </head>
@@ -30,7 +30,7 @@
                 <div id="chat">
                     
                     <div class="card">
-                        <div id="messages" class = "card-block" style="overflow:scroll;">
+                        <div id="messages" class = "card-block" style="overflow:scroll; background:#c1faf6; height:370px;" >
                     
                         </div>
                     </div>
@@ -86,12 +86,39 @@
                     for(var x=0;x<data.length;x++){
                         //build out messages div
                         var message = document.createElement('div');
-                        message.setAttribute('class','chat-message');
-                        message.textContent = data[x].name+": "+data[x].message;
-                        messages.appendChild(message);
-                        messages.insertBefore(message,
-                        messages.firstChild)
+                       // message.setAttribute('class','bubble');
+                        if(data[x].name===user_name){
 
+                            message.style.width='270px';
+                            message.style.margin='5px auto';
+                            message.style.background='#556B2F';
+                            message.style.padding='4px';
+                            message.style.textAlign='center';
+                            message.style.fontWeight="400";
+                            message.style.color="#fff";
+                            message.style.fontFamily='arial';
+                            message.style.position='relative';
+                            message.style.border='1px solid #00bfb6';
+                            message.style.left="25%";
+
+                            message.textContent=data[x].message
+                        }else{
+                            message.style.background='#556B2F';
+                            message.style.width='270px';
+                            message.style.margin='5px auto';
+                            message.style.border='1px solid #00bfb6';
+                            message.style.padding='4px';
+                            message.style.textAlign='center';
+                            message.style.fontWeight='400';
+                            message.style.color='#fff';
+                            message.style.fontFamily='arial';
+                            message.style.position='relative';
+                            message.style.right="25%";
+
+                            message.textContent=data[x].name+":"+" "+data[x].message
+                        }
+                        messages.appendChild(message);
+                        //messages.insertBefore(message,messages.firstChild)
                     }
                 }
             })

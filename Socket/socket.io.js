@@ -16,7 +16,8 @@ const Driver =function(){
 
             //connect to socket.io
             client.on('connection',function(socket){
-                     console.log("socket ID>>>>>>>>",socket.id)
+                console.log("socket ID>>>>>>>>",socket.id)
+                    
                     let chat = db.collection('chats');
                     
                     //function to send status

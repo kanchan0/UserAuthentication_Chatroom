@@ -2,6 +2,7 @@ const express = require("express")
 const router = express.Router();
 const bcrypt = require("bcryptjs")
 const passport = require("passport")
+const mail_sender=require("../mail-sender/node-mailer")
 
 //passport config
 require("../config/passport")(passport)
@@ -77,6 +78,7 @@ router.post('/register',(req,res)=>{
                             //save user to the database
                             newUser.save()
                             .then(user=>{
+                                mail_sender.mail_sender(email);
                                 req.flash("success_msg","You are now Registered,please log in")
                                 res.redirect("/users/login")
                             })
