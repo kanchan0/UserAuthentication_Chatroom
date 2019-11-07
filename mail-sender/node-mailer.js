@@ -11,9 +11,9 @@ const transporter = nodemailer.createTransport( smtpTransport ({
     requiresAuth       :         true,        
     domains            :        ["gmail.com", "googlemail.com"],
     auth               :       {
-                                user : "testertiwary@gmail.com",            //give your email id and password make
+                                user : "sender's email-id",            //give your email id and password make
                                                             // sure it does not have active two way authentication
-                                pass : "12345Kanchan"
+                                pass : "password"
                                 },
     tls                :       {
                                rejectUnauthorized:false   
@@ -22,7 +22,7 @@ const transporter = nodemailer.createTransport( smtpTransport ({
 
 const mailOptions = {
     to      :   receiver_email,            
-    from    :   "testertiwary@gmail.com",       
+    from    :   "same email id from above auth",       
     subject :    "Successfull SignUp with Chat-Room",
     html    :   `<p>Hello User,<p>you are succesfully signed up with us,enjoy chatting</p> <p>Regards,chatroom</p></p>`,
     text    :   "message"
