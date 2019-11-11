@@ -11,13 +11,6 @@ const Driver          =     require("./Socket/socket.io")
 //passport config
 require("./config/passport")
 
-
-//connect to Mongo
-mongoose.connect("mongodb://127.0.0.1/passport_auth",{useNewUrlParser:true,useUnifiedTopology:true})
-  .then(()=>{console.log("MONGODb connected")})
-  .catch((err)=>console.log(err));
-
-
 //EJS
 app.use(expressLayouts)
 app.set('view engine','ejs');
@@ -56,4 +49,10 @@ app.use('/',require("./Routes/index"))
 app.use('/users',require("./Routes/users"))
 
 const PORT = process.env.PORT||7000;
-app.listen(PORT,console.log(`server started at ${7000}`))
+//connect to Mongo
+mongoose.connect("mongodb://127.0.0.1/passport_auth",{useNewUrlParser:true,useUnifiedTopology:true})
+  .then(()=>{
+    console.log("MONGODb connected");
+    app.listen(PORT,console.log(`server started at ${7000}`))
+  })
+  .catch((err)=>console.log(err));
