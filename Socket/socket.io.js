@@ -1,6 +1,6 @@
 const mongo         =       require("mongodb").MongoClient;
 const client        =       require('socket.io').listen(4000).sockets;
-
+const schedule      =       require("node-schedule");
 
 const Driver =function(){
        
@@ -12,14 +12,26 @@ const Driver =function(){
             }
             console.log("MongoDB connected for chatroom collection...");
             const db = cl.db("passport_auth");
-
+            
 
             //connect to socket.io
             client.on('connection',function(socket){
                 console.log("socket ID>>>>>>>>",socket.id)
-                    
+                let soc_id=socket.id;
+                    socket.on("online_users",function(data){
+                        
+                        socket.broadcast.emit('users_online',[data])
+                        socket.on('disconnect',function(){
+                            console.log("disconnected socket_id",soc_id,data);
+                            socket.broadcast.emit("Disconnected_user",data)
+
+                        })
+                    })
+                        // schedule.scheduleJob('/1 * * * * *',function(){
+                        //     socket.emit('users_online',online_user);  
+                        // })
+
                     let chat = db.collection('chats');
-                    
                     //function to send status
                     sendStatus = function(s){
                         socket.emit("status",s)
@@ -36,7 +48,6 @@ const Driver =function(){
                         }
                         //emit the messages
                         socket.emit("output",res)
-                        //console.log(res)
                     });
 
 
@@ -62,7 +73,7 @@ const Driver =function(){
                             })
                         })
                     }
-                });
+                })
                 socket.on('clear',function(){
                     //remove all chats from collection
                     chat.deleteMany({},function(){
@@ -74,7 +85,7 @@ const Driver =function(){
                 socket.on("typing",function(data){
                     sendTyping({message:`${data.user_name} is typing ... `})
                 })
-                //socket.to(socket.id).emit
+               
             })
         })
 }
