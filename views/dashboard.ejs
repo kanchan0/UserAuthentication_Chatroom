@@ -12,14 +12,14 @@
             background-color:rgb(248, 153, 115);
         }
         #message-box{
-            margin-top: 127px;
+            margin-top: 80px;
             border-top: 2px solid #f39c12;
             border-top-color: 1px solid red;
             background: white;
             box-shadow: 0 1px 1px rgba(0,0,0,0.1);
         }
         .top-header{
-            background: white;
+            background: rgb(238, 230, 188);
             box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.08);
             /* padding: 0; */
             margin: 0;
@@ -30,33 +30,23 @@
 <body >
         <div class="row col-12 top-header">
             <div class="col-6 ">
-                   
-                    <h1>
-                            Chat-Room
-                        </h1>
+                    <h1> Chat-Room</h1>
             </div>
-
             <div class="col-6" style="text-align:end">
                     <button id="clear" class="btn btn-danger">Clear</button>
-                    <a  href="/users/logout" class="btn btn-warning">LogOut</a>
-                    
+                    &nbsp
+                    <a  href="/users/logout" class="btn btn-warning">LogOut</a>  
             </div>
         </div>
     <div class="container">
-      
         <div class="row">
-                <div class="col-sm-8 " style="margin-top:81px;">
-                      
-                
+                <div class="col-sm-8 " style="margin-top:34px;">
                         <p class="lead mb-3"> Welcome <%= name %></p>
                         <div id="status"></div>
                         <div id="read"></div>
-        
                         <div id="chat">
-                            
                             <div class="card">
                                 <div id="messages" class = "card-block" style="overflow:scroll; background:white; height:370px; border-top: 2px solid #f39c12;" >
-                            
                                 </div>
                             </div>
                             <br>
@@ -68,9 +58,7 @@
                     <div class="box-header with-border">
                             <h4 class="box-title">Online Members</h4>
                           </div>
-                
             </div>
-           
     </div>
     <script id="user-data" type="application/json">
     <%= name %>
@@ -86,7 +74,7 @@
             }
 
             //get elemnt
-            var status = element('status')
+            var status   = element('status')
             var messages = element('messages')
             var textarea = element('textarea')
             var clearBtn = element('clear')
@@ -108,7 +96,7 @@
             //check for connection
             if(socket !== undefined){
                 console.log("connected to socket ...")
-                socket.emit("online_users",user_name);
+                socket.emit("user_Connected",user_name);
             //handle output    
             socket.on('output',function(data){
                
@@ -179,28 +167,25 @@
                     socket.emit("typing",{user_name})
                 }
             })
+            socket.on("typing_status",function(s){
+                setStatus(s)
+            })
 
             //handle clear button
-            clearBtn.addEventListener("click",function(){
-                socket.emit("clear");
+            clearBtn.addEventListener('click',function(){
+                socket.emit('clear','clear_chat');
             })
 
             //clear message
             socket.on("cleared",function(){
                 messages.textContent = "";
             })
-            socket.on("Disconnected_user",function(data){
-                console.log(">>>>>>>>>>>>",data)
-               // data.foreach(element=>{
-                    let element1=document.getElementById(data);
-                    console.log("element1",element1);
-                    if(element!==undefined){
-                    element1.parentNode.removeChild(element1)}
-             //   })
-        })
+          
             socket.on("users_online",function(data){
                 console.log("online users",data);
+              
                 let parent=document.getElementById('message-box')
+                $('#message-box div').empty();
                 data.map(data=>{
                     let messageItem=document.createElement('div');
                     messageItem.id=data;

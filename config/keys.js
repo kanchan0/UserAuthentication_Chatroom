@@ -1,7 +1,7 @@
 module.exports={
     mail_sender:{
-        email:"senders email-id",
-        password:"password"
+        email:"testertiwary@gmail.com",
+        password:"12345Kkt6789"
     }
 
 }
