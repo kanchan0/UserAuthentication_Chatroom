@@ -31,3 +31,16 @@ nodemon server.js
 
 ### After running the server. Open chrome or any browser and type localhost:7000
 There you go,you can login or sign for new users and make them interact.
+
+
+
+### I am attaching few screenshot for reference
+![Screenshot (5)](https://github.com/kanchan0/UserAuthentication_Chatroom/assets/48135129/c49e6bfb-1a4f-4c9d-ae05-684e901211dd)
+![Screenshot (1)](https://github.com/kanchan0/UserAuthentication_Chatroom/assets/48135129/bb3fdd59-a644-46da-bf04-f254bf018070)
+![Screenshot (2)](https://github.com/kanchan0/UserAuthentication_Chatroom/as
+![Screenshot (4)](https://github.com/kanchan0/UserAuthentication_Chatroom/assets/48135129/030d83d8-9465-414a-abbd-f503761b9a97)
+sets/48135129/a3dba333-6c70-48b7-9fbc-5e931003a4d5)
+![Screenshot (3)](https://github.com/kanchan0/UserAuthentication_Chatroom/assets/48135129/edb2f5f1-463e-46bb-b6ea-35fc29d339c8)
+
+
+
