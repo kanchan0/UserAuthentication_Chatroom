@@ -107,7 +107,7 @@ router.post("/login",(req,res,next)=>{
 //logout handle
 
 router.get("/logout",(req,res)=>{
-    req.logOut();
+    req._destroy
     req.flash("success_msg","you are logged out")
     res.redirect("/users/login")
 })
