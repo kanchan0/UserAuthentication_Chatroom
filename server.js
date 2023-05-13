@@ -6,14 +6,17 @@ const flash           =     require("connect-flash")
 const session         =     require("express-session")
 const passport        =     require("passport")
 const Driver          =     require("./Socket/socket.io")
-
-
+const Winston         =     require("./logger/winston")
+const morgan          =     require("morgan")
 //passport config
 require("./config/passport")
 
 //EJS
 app.use(expressLayouts)
 app.set('view engine','ejs');
+
+// winston logger
+app.use(morgan('combined', { stream: Winston.stream }));
 
 //bodyparser
 app.use(express.urlencoded({extended:true}))

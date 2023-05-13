@@ -1,9 +1,9 @@
 const mongo         =       require("mongodb").MongoClient;
 const ios           =       require('socket.io').listen(4000)
 const client        =       ios.sockets;
+const User          =       require('../modals/User')
 
 const Driver =function(){  
-    let online=[];
     //connect to mongo
         mongo.connect('mongodb://127.0.0.1/passport_auth',{ 
             useNewUrlParser: true,
@@ -13,26 +13,44 @@ const Driver =function(){
                     if(err){ throw err; }
                     console.log("MongoDB connected for chatroom collection...");
                     const db = cl.db("passport_auth");
+                    let online=[];
+
+                    //  function sendAllUser(){
+                    //      User.find({})
+                    //         .then(result=>{
+                    //             if(result){
+                    //                 let output=[]
+                    //                 result.forEach(res=>{
+                    //                     output.push(res.name)
+                    //                 })
+                    //                 console.log(output);
+                    //                 return output;
+                                    
+                                   
+                    //             }
+
+                    //         })
+                    //         .catch(err=>err)    
+                    //   }
                     
-                   
                     //connect to socket.io
                     client.on('connection',function(socket){
-                        //console.log("socket ID>>>>>>>>",socket.id)
-                        
-                            let soc_id=socket.id;
+                        console.log("socket ID>>>>>>>>",socket.id)
+                        //let soc_id=socket.id;
                             socket.on("user_Connected",function(data){
-                            online.push(data)
-                            let unique = [...new Set(online)]
-                            socket.emit('users_online',unique);
-                            socket.broadcast.emit('users_online',unique);
-                            socket.on('disconnect',function(){
-                                   // console.log("disconnected socket_id",soc_id,data);
-                                    let a = unique.indexOf(data);
-                                    unique.splice(a,1)
-                                    socket.broadcast.emit('users_online',unique);
-                                //socket.broadcast.emit("Disconnected_user",data);
-                                //console.log(ios.sockets.adapter.sids)
-                            });
+                                online.push(data)
+                                let unique = [...new Set(online)]
+                                socket.emit('users_online',unique);
+                                socket.broadcast.emit('users_online',unique);
+                                socket.on('disconnect',function(){
+                                    // console.log("disconnected socket_id",soc_id,data);
+                                        let a = unique.indexOf(data);
+                                        unique.splice(a,1)
+                                        online=unique;
+                                        socket.broadcast.emit('users_online',online);
+                                    //socket.broadcast.emit("Disconnected_user",data);
+                                    //console.log(ios.sockets.adapter.sids)
+                                });
                         });
                     
                         let chat = db.collection('chats');

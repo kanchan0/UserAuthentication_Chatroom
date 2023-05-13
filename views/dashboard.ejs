@@ -17,6 +17,7 @@
             border-top-color: 1px solid red;
             background: white;
             box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+            padding: 0px;
         }
         .top-header{
             background: rgb(238, 230, 188);
@@ -25,16 +26,92 @@
             margin: 0;
             padding:10px;
         }
+        .padd-0{
+            margin-top: 10px;
+            padding-bottom: 5px;
+            /* background: red; */
+            border-bottom: 1px solid rgb(22, 22, 21);
+            margin-right: 0px;
+            margin-left: 0px;
+        }
+        .img{
+            height: 43px;
+            /* padding: 10px; */
+            padding-top: 10px;
+            background: rgb(137, 137, 241);
+            border-radius: 50%;
+
+        }
+        .text{
+            margin-top:9px;
+        }
+        .float-right{
+            width:50%;
+            float:left;
+        }
+         .float-right{
+            font-size: 16px;
+            margin-top: 5px;
+            overflow: auto;
+            margin-bottom: 5px;
+            border-radius: 15.3px;
+            -webkit-box-pack: end;
+            -ms-flex-pack: end;
+            justify-content: flex-end;
+            width: 100%;
+            padding: 9px;
+            border-radius: 21.2px;
+            }
+             .float-left{
+            font-size: 16px;
+            overflow: auto;
+            border-radius: 15.3px;
+            -webkit-box-pack: end;
+            -ms-flex-pack: end;
+            justify-content: flex-end;
+            width: 100%;
+            padding: 9px;
+            border-radius: 21.2px;
+            }
+           .chat-sent-div{
+            max-width: 80%;
+            width: -webkit-max-content;
+            width: -moz-max-content;
+            width: max-content;
+            -webkit-box-shadow: 0 3px 12px 0 rgba(124, 124, 124, 0.1);
+            box-shadow: 0 3px 12px 0 rgba(124, 124, 124, 0.1);
+            background-color:blue;
+            color: white;
+            padding: 10px;
+            border-bottom-right-radius: 20px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            float: right;
+            }
+            .chat-receive-div{
+            max-width: 80%;
+            width: -webkit-max-content;
+            width: -moz-max-content;
+            width: max-content;
+            -webkit-box-shadow: 0 3px 12px 0 rgba(124, 124, 124, 0.1);
+            box-shadow: 0 3px 12px 0 rgba(124, 124, 124, 0.1);
+            background-color:blue;
+            color: white;
+            padding: 10px;
+            border-bottom-left-radius: 20px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            
+            }
 </style>   
 </head>
 <body >
         <div class="row col-12 top-header">
             <div class="col-6 ">
-                    <h1> Chat-Room</h1>
+                    <h1>ChatRoom</h1>
             </div>
             <div class="col-6" style="text-align:end">
-                    <button id="clear" class="btn btn-danger">Clear</button>
-                    &nbsp
+                    <button id="clear" class="btn btn-danger">Clear</button>&nbsp
                     <a  href="/users/logout" class="btn btn-warning">LogOut</a>  
             </div>
         </div>
@@ -54,12 +131,21 @@
                             placeholder="enter message .."></textarea>
                         </div>
                 </div>
+                <div >
+
+                </div>
             <div class="col-sm-3" id="message-box">
                     <div class="box-header with-border">
                             <h4 class="box-title">Online Members</h4>
                           </div>
+
+                     <div id="online-users" style="width:100%">
+
+                     </div>
+
             </div>
     </div>
+    
     <script id="user-data" type="application/json">
     <%= name %>
 </script>
@@ -99,45 +185,35 @@
                 socket.emit("user_Connected",user_name);
             //handle output    
             socket.on('output',function(data){
-               
-                // console.log(data);
+    
                 if(data.length){
                     for(var x=0;x<data.length;x++){
                         //build out messages div
-                        var message = document.createElement('div');
-                       // message.setAttribute('class','bubble');
+                      var mainDiv=document.getElementById('messages')
                         if(data[x].name===user_name){
+                            
+                          let sent_data_div=document.createElement("div");
+                          let sent_data_text=document.createElement("div");
+                          let node = document.createTextNode(data[x].message);
+                          let mainElement = document.getElementById("messages");
+                          sent_data_text.appendChild(node);
+                          sent_data_div.appendChild(sent_data_text);
+                          mainElement.appendChild(sent_data_div);
+                          sent_data_text.className = "chat-sent-div";
+                          sent_data_div.className = "float-left";
 
-                            message.style.width='270px';
-                            message.style.margin='5px auto';
-                            message.style.background='#556B2F';
-                            message.style.padding='4px';
-                            message.style.textAlign='center';
-                            message.style.fontWeight="400";
-                            message.style.color="#fff";
-                            message.style.fontFamily='arial';
-                            message.style.position='relative';
-                            message.style.border='1px solid #00bfb6';
-                            message.style.left="25%";
-
-                            message.textContent=data[x].message
                         }else{
-                            message.style.background='#556B2F';
-                            message.style.width='270px';
-                            message.style.margin='5px auto';
-                            message.style.border='1px solid #00bfb6';
-                            message.style.padding='4px';
-                            message.style.textAlign='center';
-                            message.style.fontWeight='400';
-                            message.style.color='#fff';
-                            message.style.fontFamily='arial';
-                            message.style.position='relative';
-                            message.style.right="25%";
-
-                            message.textContent=data[x].name+":"+" "+data[x].message
+                            
+                            let sent_data_div=document.createElement("div");
+                            let sent_data_text=document.createElement("div");
+                            let node = document.createTextNode(data[x].name+":"+" "+data[x].message);
+                            let mainElement = document.getElementById("messages");
+                            sent_data_text.appendChild(node);
+                            sent_data_div.appendChild(sent_data_text);
+                            mainElement.appendChild(sent_data_div);
+                            sent_data_text.className = "chat-receive-div";
+                            sent_data_div.className = "float-right";                       
                         }
-                        messages.appendChild(message);
-                        //messages.insertBefore(message,messages.firstChild)
                     }
                 }
             })
@@ -182,15 +258,36 @@
             })
           
             socket.on("users_online",function(data){
-                console.log("online users",data);
-              
-                let parent=document.getElementById('message-box')
-                $('#message-box div').empty();
-                data.map(data=>{
+                let new_online=[];
+                for(let i=0;i<data.length;i++){
+                    if(data[i]==user_name){
+                    }else{
+                        new_online.push(data[i])
+                    }
+                }
+               // console.log("online users>>>>>",new_online);
+                let parent=document.getElementById('online-users')
+                $('#online-users div').empty();
+                new_online.map(data=>{
+                    console.log(">>>>>>>>>>>>>>>>>>>>>>",data)
                     let messageItem=document.createElement('div');
+                    console.log("!!!!!!!!",data.charAt(1))
                     messageItem.id=data;
+                    messageItem.className="row col-12 padd-0" ;
+                    let img=document.createElement('div');
+                    
+                    let istLetter= "S";
+                    console.log(">>>>>>>>",istLetter);
+
+                    let name=document.createElement('div');
+                    img.className="col-2 img";
+                    name.className="col-9 text";
+                    let node1=document.createTextNode(istLetter);
+                    img.appendChild(node1)
                     let node=document.createTextNode(data);
-                    messageItem.appendChild(node);
+                    name.appendChild(node);
+                    messageItem.appendChild(img);
+                    messageItem.appendChild(name);
                     parent.appendChild(messageItem)
                 })
             })
