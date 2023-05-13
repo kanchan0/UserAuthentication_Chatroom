@@ -11,7 +11,8 @@ A project of creating a chatroom with user authentication and then let them join
 #### 2. A client who is not logged in will not be able to view or send messages to the chatroom.
 #### 3. Chatroom,where all your chat are stored and you can see it everytime you connect.
 #### 4. If a client is typing every on sees "`user` is typing ..",similar to whatsapp.
-#### 5. If you wish you can clear all chat too.This is not a good practice because anyone can delete the chat from database but this is just a added functionality.
+#### 5. All the users that are online at any moment is visible.
+#### 6. If you wish you can clear all chat too.This is not a good practice because anyone can delete the chat from database but this is just a added functionality.
 
 ### First download or clone the project.Then 
 ### To install the all packages run the below command: 
